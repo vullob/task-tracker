@@ -1,0 +1,32 @@
+<h1>Listing Tasks</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Desc</th>
+      <th>Completed</th>
+      <th>Time</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for task <- @tasks do %>
+    <tr>
+      <td><%= task.title %></td>
+      <td><%= task.desc %></td>
+      <td><%= task.completed %></td>
+      <td><%= task.time %></td>
+
+      <td>
+        <%= link "Show", to: Routes.task_path(@conn, :show, task), class: "btn btn-secondary" %>
+        <%= link "Edit", to: Routes.task_path(@conn, :edit, task),  class: "btn btn-info" %>
+        <%= link "Delete", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Task", to: Routes.task_path(@conn, :new), class: "btn btn-primary"%></span>
