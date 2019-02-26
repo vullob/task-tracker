@@ -9,13 +9,15 @@
   </head>
   <body>
     <div class="container">
-      <nav role="navbar navbar-expand-sm navbar-light bg-white">
+      <nav class="navbar navbar-expand-sm navbar-light bg-white">
         <div class="col-4">
           <a class="navbar-brand" href="#">Task Tracker</a>
         </div>
         <div class="col-4">
           <ul class="navbar-nav mr-auto">
-            <li><a href="#">Home</a></li>
+            <li class="nav-item active">
+              <a href="/" class="nav-link">Home</a>
+            </li>
           </ul>
         </div>
         <div class="col-4">
