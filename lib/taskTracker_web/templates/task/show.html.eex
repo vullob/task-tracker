@@ -22,6 +22,11 @@
     <%= @task.time %>
   </li>
 
+  <li>
+    <strong>Owner:</strong>
+    <%= @task.user.email %>
+  </li>
+
 </ul>
 
 <span><%= link "Edit", to: Routes.task_path(@conn, :edit, @task) %></span>

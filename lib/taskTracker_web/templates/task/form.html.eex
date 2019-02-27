@@ -29,6 +29,12 @@
     <%= error_tag f, :time %>
   </div>
 
+  <div class="form-group">
+    <%= label f, :user_email %>
+    <%= text_input f, :user_email, class: "form-control" %>
+    <%= error_tag f, :user_email %>
+  </div>
+
   <div>
     <%= submit "Save", class: "btn btn-primary" %>
   </div>

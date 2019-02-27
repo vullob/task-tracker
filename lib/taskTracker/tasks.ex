@@ -7,6 +7,7 @@ defmodule TaskTracker.Tasks do
   alias TaskTracker.Repo
 
   alias TaskTracker.Tasks.Task
+  alias TaskTracker.Users
 
   @doc """
   Returns the list of tasks.
@@ -37,6 +38,12 @@ defmodule TaskTracker.Tasks do
   """
   def get_task!(id), do: Repo.get!(Task, id)
 
+  def get_task(id) do
+    Repo.one from t in Task,
+      where: t.id == ^id,
+      preload: [:user]
+  end
+
   @doc """
   Creates a task.
 
@@ -50,6 +57,9 @@ defmodule TaskTracker.Tasks do
 
   """
   def create_task(attrs \\ %{}) do
+    %{id: id} =  Users.get_user_by_email(attrs["user_email"])
+    id |> IO.inspect
+    attrs =  Map.put(attrs, "user_id", id)
     %Task{}
     |> Task.changeset(attrs)
     |> Repo.insert()

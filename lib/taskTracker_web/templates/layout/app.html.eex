@@ -39,17 +39,27 @@
              <% end %>
         </div>
       </nav>
-      <div role="main" class="container">
         <div class="col-12">
           <%= if get_flash(@conn, :info) do %>
-          <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+            <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
           <% end %>
           <%= if get_flash(@conn, :error) do %>
-          <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+            <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
           <% end %>
         </div>
+    <div class="row">
+      <div class="col-8">
+        <%= render @view_module, @view_template, assigns %>
       </div>
-      <%= render @view_module, @view_template, assigns %>
+      <div class="col-4">
+       <%= if @current_user do %>
+          <%= render TaskTrackerWeb.TaskView, "index.html",
+            Map.put(assigns, :tasks, @current_user.tasks) %>
+       <%= else %>
+          <p><%= link "Register", to: Routes.user_path(@conn, :new) %></p>
+       <% end %>
+      </div>
+    </div>
     </div>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
