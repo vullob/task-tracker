@@ -57,12 +57,19 @@ defmodule TaskTracker.Tasks do
 
   """
   def create_task(attrs \\ %{}) do
-    %{id: id} =  Users.get_user_by_email(attrs["user_email"])
-    id |> IO.inspect
+    id  =  Users.get_user_by_email(attrs["user_email"])[:id] || nil
     attrs =  Map.put(attrs, "user_id", id)
-    %Task{}
+    {_, changeset} = %Task{}
     |> Task.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert
+    if (Map.get(changeset, :valid?) == false && id == nil) do
+     {:error, Map.merge(changeset, %{errors:
+                                        [user_id:
+                                            {"user not found", [validation: :required]}
+                                        ]})}
+    else
+     {:ok, changeset}
+    end
   end
 
   @doc """

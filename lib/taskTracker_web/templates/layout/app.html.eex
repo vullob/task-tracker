@@ -54,7 +54,7 @@
       <div class="col-4">
        <%= if @current_user do %>
           <%= render TaskTrackerWeb.TaskView, "index.html",
-            Map.put(assigns, :tasks, @current_user.tasks) %>
+           Map.merge(assigns, %{tasks: @current_user.tasks, view: :user}) %>
        <%= else %>
           <p><%= link "Register", to: Routes.user_path(@conn, :new) %></p>
        <% end %>

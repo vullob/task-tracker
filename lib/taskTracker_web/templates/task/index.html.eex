@@ -1,10 +1,15 @@
-<h1>Listing Tasks</h1>
-
+<%= if @view == :user do %>
+  <h2>My Tasks</h2>
+<% else %>
+  <h1>All Tasks</h1>
+<% end %>
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Title</th>
-      <th>Desc</th>
+      <%= if @view != :user do %>
+        <th>Desc</th>
+      <% end %>
       <th>Completed</th>
       <th>Time</th>
 
@@ -15,7 +20,9 @@
 <%= for task <- @tasks do %>
     <tr>
       <td><%= task.title %></td>
-      <td><%= task.desc %></td>
+      <%= if @view != :user do %>
+        <td><%= task.desc %></td>
+      <% end %>
       <td><%= task.completed %></td>
       <td><%= task.time %></td>
 
