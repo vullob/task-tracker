@@ -22,9 +22,13 @@
     <%= @task.time %>
   </li>
 
-  <li>
-    <strong>Owner:</strong>
-    <%= @task.user.email %>
+    <li>
+      <strong>Owner:</strong>
+      <%= if @task.user != nil do %>
+        <%= @task.user.email %>
+      <% else %>
+        Not Assigned
+      <% end %>
   </li>
 
 </ul>
