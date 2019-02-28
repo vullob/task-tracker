@@ -3,14 +3,13 @@
 <% else %>
   <h1>All Open Tasks</h1>
 <% end %>
-<table class="table table-striped">
-  <thead>
+<table class="table table-dark table-striped">
+  <thead class="thead-dark">
     <tr>
       <th>Title</th>
       <%= if @view != :user do %>
         <th>Description</th>
       <% end %>
-
       <th></th>
     </tr>
   </thead>
@@ -21,7 +20,6 @@
       <%= if @view != :user do %>
         <td><%= task.description %></td>
       <% end %>
-
       <td>
         <%= link "Show", to: Routes.task_path(@conn, :show, task), class: "btn btn-secondary" %>
         <%= link "Edit", to: Routes.task_path(@conn, :edit, task),  class: "btn btn-info" %>
@@ -36,7 +34,7 @@
 <% else %>
   <h1>All Completed Tasks</h1>
 <% end %>
-<table class="table table-striped">
+<table class="table table-dark table-striped">
   <thead>
     <tr>
       <th>Title</th>
