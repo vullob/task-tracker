@@ -13,7 +13,7 @@ config :taskTracker, TaskTrackerWeb.Endpoint,
 
 # Configure your database
 config :taskTracker, TaskTracker.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "task_tracker",
+  password: "task_tracker",
   database: "tasktracker_prod",
   pool_size: 15
