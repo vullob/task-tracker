@@ -28,19 +28,6 @@ defmodule TaskTrackerWeb.TaskController do
 
   def show(conn, %{"id" => id}) do
     task = Tasks.get_task(id)
-    start = Map.get(task, :start)
-    finish = Map.get(task, :finish)
-    time = cond do
-            start != nil  && finish == nil -> DateTime.diff(DateTime.utc_now(),  start)
-            start != nil  && finish != nil -> DateTime.diff(finish,  start)
-            true -> 0
-          end
-    time = time - rem(time, 900)
-    hours = trunc(time/3600)
-    minutes = trunc(rem(time, 3600)/60)
-    timeStr = "#{hours}h #{minutes}m"
-    #Time.to_string(elem(Time.new(0, 0, 0), 1) |> Time.add(time)) 
-    task = Map.merge(task, %{time: timeStr}) |> IO.inspect
     render(conn, "show.html", task: task)
   end
 

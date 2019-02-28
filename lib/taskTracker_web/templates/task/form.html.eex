@@ -24,6 +24,12 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :time %>
+    <%= number_input f, :time, class: "form-control"%>
+    <%= error_tag f, :time %>
+  </div>
+
+  <div class="form-group">
     <%= inputs_for f, :user, fn fp -> %>
       <%= label fp, :email %>
       <%= text_input fp, :email, class: "form-control", maxlength: "255" %>
