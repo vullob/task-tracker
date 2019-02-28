@@ -32,8 +32,8 @@ defmodule TaskTrackerWeb.TaskController do
   end
 
   def edit(conn, %{"id" => id}) do
-    task = Tasks.get_task(id) |> IO.inspect
-    changeset = Tasks.change_task(task) |> IO.inspect
+    task = Tasks.get_task(id)
+    changeset = Tasks.change_task(task)
     render(conn, "edit.html", task: task, changeset: changeset)
   end
 

@@ -8,8 +8,8 @@
   </li>
 
   <li>
-    <strong>Desc:</strong>
-    <%= @task.desc %>
+    <strong>Description:</strong>
+    <%= @task.description %>
   </li>
 
   <li>
@@ -19,9 +19,9 @@
 
 
   <li>
-    <strong>Time Spent:</strong>
-    <%= if @task.time do %>
-      <%= @task.time %>
+    <strong>Minutes Spent:</strong>
+    <%= if @task.minutes_spent do %>
+      <%= @task.minutes_spent %>
     <% end %>
   <li>
     <strong>Owner:</strong>

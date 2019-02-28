@@ -12,9 +12,9 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :desc %>
-    <%= text_input f, :desc, class: "form-control", maxlength: "255" %>
-    <%= error_tag f, :desc %>
+    <%= label f, :description %>
+    <%= text_input f, :description, class: "form-control", maxlength: "255" %>
+    <%= error_tag f, :description %>
   </div>
 
   <div class="form-group">
@@ -24,9 +24,9 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :time %>
-    <%= number_input f, :time, class: "form-control"%>
-    <%= error_tag f, :time %>
+    <%= label f, :minutes_spent %>
+    <%= number_input f, :minutes_spent, class: "form-control"%>
+    <%= error_tag f, :minutes_spent %>
   </div>
 
   <div class="form-group">
