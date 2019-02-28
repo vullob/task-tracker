@@ -17,18 +17,19 @@
     <%= @task.completed %>
   </li>
 
-  <li>
-    <strong>Time:</strong>
-    <%= @task.time %>
-  </li>
 
-    <li>
-      <strong>Owner:</strong>
-      <%= if @task.user != nil do %>
-        <%= @task.user.email %>
-      <% else %>
-        Not Assigned
-      <% end %>
+  <li>
+    <strong>Time Spent:</strong>
+    <%= if @task.time do %>
+      <%= @task.time %>
+    <% end %>
+  <li>
+    <strong>Owner:</strong>
+    <%= if @task.user != nil do %>
+      <%= @task.user.email %>
+    <% else %>
+      Not Assigned
+    <% end %>
   </li>
 
 </ul>

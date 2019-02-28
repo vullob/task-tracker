@@ -6,7 +6,8 @@ defmodule TaskTracker.Tasks.Task do
   schema "tasks" do
     field :completed, :boolean, default: false, null: false
     field :desc, :string, null: true, default: ""
-    field :time, :integer, null: false, default: 0
+    field :start, :utc_datetime, null: true, default: nil
+    field :finish, :utc_datetime, null: true, default: nil
     field :title, :string, null: false
     belongs_to :user, TaskTracker.Users.User
 
@@ -16,8 +17,8 @@ defmodule TaskTracker.Tasks.Task do
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :completed, :time, :desc, :user_id], [:desc])
-    |> validate_required([:title, :completed, :time])
+    |> cast(attrs, [:title, :completed, :desc, :user_id, :start, :finish], [:desc])
+    |> validate_required([:title, :completed])
     |> foreign_key_constraint(:user_id, [message: "not found"])
   end
 end

@@ -60,9 +60,10 @@ defmodule TaskTracker.Tasks do
     id  = case attrs["user"]["email"] do
             nil -> nil
             "" -> nil
-            _ -> Map.get(Users.get_user_by_email(attrs["user"]["email"]) || %{}, :id) || -20
+            _ -> Map.get(Users.get_user_by_email(attrs["user"]["email"]) || %{}, :id) || -1
           end
-    attrs =  Map.put(attrs, "user_id", id)
+    attrs = Map.put(attrs, "start", DateTime.utc_now())
+          |> Map.put("user_id", id)
     %Task{}
        |> Task.changeset(attrs)
        |> Repo.insert
@@ -87,9 +88,32 @@ defmodule TaskTracker.Tasks do
             _ -> Map.get(Users.get_user_by_email(attrs["user"]["email"]) || %{}, :id) || -20
           end
     attrs =  Map.put(attrs, "user_id", id) |> Map.delete(:user)
+
+    # first we check to see if the user has changed, and update the
+    # time started accordingly
+    attrs = cond do
+             Map.get(task, :user_id) != id -> Map.put(attrs, "start", DateTime.utc_now())
+              true -> attrs
+            end
+
+    # then we check to see if the task has been completed, and update
+    # the time ended accordingly (and set time started if not already there)
+    now = DateTime.truncate(DateTime.utc_now(), :second)
+    attrs |> IO.inspect
+    attrs = cond do
+              attrs["completed"] == "true" && Map.get(task, :start) == nil -> "DOING THIS ONE" |> IO.inspect; attrs |> Map.merge(%{"start" => now,"finish" => now});
+              attrs["completed"] == "true" -> "SETTING FINISH TO NOW" |> IO.inspect; 
+                                    attrs |> Map.merge(%{"finish" => now})
+              attrs["completed"] == "false" -> "RESETTING FInIsh" |> IO.inspect;
+                                      attrs |> Map.merge(%{"finish" => nil});
+              true -> "BASE CASE" |> IO.inspect; task
+            end
+    task |> IO.inspect
+    "updated task" |> IO.inspect
     task
-    |> Task.changeset(attrs)
-    |> Repo.update()
+         |> Task.changeset(attrs)
+         |> Repo.update()
+         |> IO.inspect
   end
 
   @doc """

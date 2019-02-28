@@ -11,7 +11,6 @@
         <th>Desc</th>
       <% end %>
       <th>Completed</th>
-      <th>Time</th>
 
       <th></th>
     </tr>
@@ -24,7 +23,6 @@
         <td><%= task.desc %></td>
       <% end %>
       <td><%= task.completed %></td>
-      <td><%= task.time %></td>
 
       <td>
         <%= link "Show", to: Routes.task_path(@conn, :show, task), class: "btn btn-secondary" %>

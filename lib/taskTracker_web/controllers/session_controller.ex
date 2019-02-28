@@ -3,9 +3,11 @@ defmodule TaskTrackerWeb.SessionController do
 
   def create(conn, %{"email" => email}) do
     user = TaskTracker.Users.get_user_by_email(email)
+    tasks = TaskTracker.Tasks.list_tasks()
     if user do
       conn
       |> put_session(:user_id, user.id)
+      |> assign(:tasks, tasks)
       |> put_flash(:info, "Welcome back #{user.email}")
       |> redirect(to: Routes.page_path(conn, :index))
     else
