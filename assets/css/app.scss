@@ -3,3 +3,9 @@
 //$body-bg: #BBB;
 
 @import "~bootstrap/scss/bootstrap";
+
+td {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

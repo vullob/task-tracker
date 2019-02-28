@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-12">
     <h1>Welcome to Task Tracker</h1>
-    <p><%= link "Register", to: Routes.user_path(@conn, :new) %></p>
+    <p>Once you have Registered, you will see your tasks listed to the right</p>
+    <p>All tasks can be viewed from the <a href="/tasks">Tasks</a> page</p>
   </div>
 </div>

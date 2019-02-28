@@ -1,7 +1,7 @@
 <%= if @view == :user do %>
-  <h2>My Tasks</h2>
+  <h3>My Open Tasks</h3>
 <% else %>
-  <h1>All Tasks</h1>
+  <h1>All Open Tasks</h1>
 <% end %>
 <table class="table table-striped">
   <thead>
@@ -10,19 +10,49 @@
       <%= if @view != :user do %>
         <th>Desc</th>
       <% end %>
-      <th>Completed</th>
 
       <th></th>
     </tr>
   </thead>
   <tbody>
-<%= for task <- @tasks do %>
+<%= for task <- Enum.filter(@tasks, fn x -> !x.completed end) do %>
     <tr>
       <td><%= task.title %></td>
       <%= if @view != :user do %>
         <td><%= task.desc %></td>
       <% end %>
-      <td><%= task.completed %></td>
+
+      <td>
+        <%= link "Show", to: Routes.task_path(@conn, :show, task), class: "btn btn-secondary" %>
+        <%= link "Edit", to: Routes.task_path(@conn, :edit, task),  class: "btn btn-info" %>
+        <%= link "Delete", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<%= if @view == :user do %>
+  <h3>My Completed Tasks</h3>
+<% else %>
+  <h1>All Completed Tasks</h1>
+<% end %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <%= if @view != :user do %>
+        <th>Desc</th>
+      <% end %>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for task <- Enum.filter(@tasks, fn x -> x.completed end) do %>
+    <tr>
+      <td><%= task.title %></td>
+      <%= if @view != :user do %>
+        <td><%= task.desc %></td>
+      <% end %>
 
       <td>
         <%= link "Show", to: Routes.task_path(@conn, :show, task), class: "btn btn-secondary" %>
