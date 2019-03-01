@@ -10,7 +10,7 @@ mix compile
 (cd assets && npm install)
 (cd assets && webpack --mode production)
 mix phx.digest
-
+mix ecto.create
 mix ecto.migrate
 
 echo "Starting app..."
