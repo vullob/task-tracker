@@ -15,4 +15,4 @@ mix ecto.migrate
 mix release
 echo "Starting app..."
 
-_buid/prod/rel/taskTracker/bin/taskTracker foreground
+_build/prod/rel/taskTracker/bin/taskTracker foreground
