@@ -1,10 +1,10 @@
 [Unit]
-Description=Space Raiders Game
+Description=Task Tracker
 
 [Service]
 Type=simple
-User=taskTracker1
-Group=taskTracker1
+User=tasktracker1
+Group=tasktracker1
 Restart=on-failure
 Environment=MIX_ENV=prod "PORT=4794"
 Environment=LANG=en_US.UTF-8
