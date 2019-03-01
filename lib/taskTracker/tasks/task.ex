@@ -37,7 +37,7 @@ defmodule TaskTracker.Tasks.Task do
   def validate_minutes_spent(changeset, field) do
     validate_change(changeset, field,  fn _, mins ->
       cond do
-        rem(mins, 15) -> [minutes_spent: "minutes spent must be in 15 minute increments"]
+        rem(mins, 15) != 0 -> [minutes_spent: "minutes spent must be in 15 minute increments"]
         mins < 0 -> [minutes_spent: "minutes spent must be positive"]
         true -> []
       end
