@@ -25,7 +25,7 @@
 
   <div class="form-group">
     <%= label f, :minutes_spent %>
-    <%= number_input f, :minutes_spent, class: "form-control"%>
+    <%= number_input f, :minutes_spent, class: "form-control", step: "15", min: "0"%>
     <%= error_tag f, :minutes_spent %>
   </div>
 
