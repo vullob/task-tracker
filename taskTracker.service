@@ -1,0 +1,16 @@
+[Unit]
+Description=Space Raiders Game
+
+[Service]
+Type=simple
+User=taskTracker1
+Group=taskTracker1
+Restart=on-failure
+Environment=MIX_ENV=prod "PORT=4794"
+Environment=LANG=en_US.UTF-8
+
+WorkingDirectory=/home/tasktracker1/task-tracker
+ExecStart=/home/tasktracker1/task-tracker/start.sh
+
+[Install]
+WantedBy=multi-user.target
