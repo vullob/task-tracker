@@ -9,6 +9,7 @@
       <th>Title</th>
       <%= if @view != :user do %>
         <th>Description</th>
+        <th>Minutes Spent</th>
       <% end %>
       <th></th>
     </tr>
@@ -18,7 +19,8 @@
     <tr>
       <td><%= task.title %></td>
       <%= if @view != :user do %>
-        <td><%= task.description %></td>
+        <td class="desc"><%= task.description %></td>
+        <td><%= task.minutes_spent %></td>
       <% end %>
       <td>
         <%= link "Show", to: Routes.task_path(@conn, :show, task), class: "btn btn-secondary" %>
@@ -50,7 +52,7 @@
     <tr>
       <td><%= task.title %></td>
       <%= if @view != :user do %>
-        <td><%= task.description %></td>
+        <td class="desc"><%= task.description %></td>
       <% end %>
       <td><%= task.minutes_spent %></td>
 

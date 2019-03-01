@@ -12,7 +12,7 @@ mix compile
 mix phx.digest
 mix ecto.create
 mix ecto.migrate
-
+mix release
 echo "Starting app..."
 
-mix phx.server
+_buid/prod/rel/taskTracker/bin/taskTracker foreground
