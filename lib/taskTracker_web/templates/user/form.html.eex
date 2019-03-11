@@ -11,6 +11,12 @@
     <%= text_input f, :email %>
     <%= error_tag f, :email %>
   </div>
+  <div class="form-group">
+    <%= label f, :admin %>
+    <%= checkbox f, :admin %>
+    <%= error_tag f, :admin %>
+  </div>
+
   <div>
     <%= submit "Register", class: "btn btn-primary" %>
   </div>

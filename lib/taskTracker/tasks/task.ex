@@ -16,7 +16,7 @@ defmodule TaskTracker.Tasks.Task do
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :completed, :description, :user_id, :minutes_spent], [:desc])
+    |> cast(attrs, [:title, :completed, :description, :user_id, :minutes_spent])
     |> validate_required([:title, :completed, :minutes_spent])
     |> foreign_key_constraint(:user_id, [message: "user not found"])
     |> validate_length(:title)

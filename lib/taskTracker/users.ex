@@ -40,11 +40,13 @@ defmodule TaskTracker.Users do
   def get_user(id) do
    Repo.one from u in User,
     where: u.id == ^id,
-    preload: [:tasks]
+    preload: [:tasks, :underlings, :manager]
   end
 
   def get_user_by_email(email) do
     Repo.get_by(User, email: email)
+      |> Repo.preload(:underlings)
+      |> Repo.preload(:manager)
   end
 
   @doc """

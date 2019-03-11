@@ -1,4 +1,8 @@
-<h1>Listing Users</h1>
+<%= if @view != :underlings do %>
+  <h1>Users</h1>
+<% else %>
+   <h1>Underlings</h1>
+<% end %>
 
 <table class="table table-striped">
   <thead>
