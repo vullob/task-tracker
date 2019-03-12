@@ -16,12 +16,13 @@
     <%= checkbox f, :admin %>
     <%= error_tag f, :admin %>
   </div>
+  <strong>Manager</strong>
   <div class="form-group">
   <%= inputs_for f, :manager, fn fp -> %>
     <%= label fp, :email %>
     <%= text_input fp, :email %>
-    <%= error_tag fp, :email %>
   <% end %>
+    <%= error_tag f, :manager_id %>
   </div>
 
   <div>

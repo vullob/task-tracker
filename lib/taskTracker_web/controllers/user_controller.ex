@@ -39,7 +39,7 @@ defmodule TaskTrackerWeb.UserController do
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Users.get_user!(id)
+    user = Users.get_user(id)
 
     case Users.update_user(user, user_params) do
       {:ok, user} ->
