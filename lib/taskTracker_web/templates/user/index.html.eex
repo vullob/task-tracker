@@ -1,4 +1,4 @@
-<%= if @view != :underlings do %>
+<%= if assigns[:view] == nil || @view != :underlings do %>
   <h1>Users</h1>
 <% else %>
    <h1>Underlings</h1>
@@ -16,7 +16,6 @@
 <%= for user <- @users do %>
     <tr>
       <td><%= user.email %></td>
-
       <td>
         <%= link "Show", to: Routes.user_path(@conn, :show, user), class: "btn btn-secondary" %>
         <%= link "Edit", to: Routes.user_path(@conn, :edit, user), class: "btn btn-info" %>

@@ -6,6 +6,10 @@
     <strong>Email:</strong>
     <%= @user.email %>
   </li>
+ <li>
+    <strong>Manager:</strong>
+    <%= @user.manager && @user.manager.email || "none" %>
+ </li>
 
 </ul>
 

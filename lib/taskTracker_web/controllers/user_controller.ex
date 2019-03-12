@@ -28,12 +28,12 @@ defmodule TaskTrackerWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Users.get_user!(id)
+    user = Users.get_user(id)
     render(conn, "show.html", user: user)
   end
 
   def edit(conn, %{"id" => id}) do
-    user = Users.get_user!(id)
+    user = Users.get_user(id)
     changeset = Users.change_user(user)
     render(conn, "edit.html", user: user, changeset: changeset)
   end

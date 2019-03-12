@@ -15,9 +15,10 @@ defmodule TaskTracker.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :admin])
+    |> cast(attrs, [:email, :admin, :manager_id])
     |> validate_required([:email, :admin])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
+    |> foreign_key_constraint(:manager_id, [message: "user not found"])
   end
 end

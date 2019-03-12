@@ -80,6 +80,14 @@ defmodule TaskTracker.Users do
 
   """
   def update_user(%User{} = user, attrs) do
+    id = case attrs["manager"]["email"] do
+        ""  -> nil
+        nil -> nil
+        _ -> Map.get(get_user_by_email(attrs["manager"]["email"]) || %{}, :id) || -1
+    end
+    attrs = if id != nil do
+       Map.put(attrs, "manager_id", id)
+    else attrs end
     user
     |> User.changeset(attrs)
     |> Repo.update()
