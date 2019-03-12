@@ -9,6 +9,8 @@
           <p><%= @current_user.manager.email %></p>
       <% end %>
       <%= if @current_user.admin do %>
+          <%= render TaskTrackerWeb.TaskView, "index.html",
+              Map.merge(assigns, %{tasks: Enum.flat_map(@current_user.underlings, fn underling -> underling.tasks end), view: :underlings}) %>
           <%= render TaskTrackerWeb.UserView, "index.html",
               Map.merge(assigns, %{users: @current_user.underlings, view: :underlings}) %>
       <% end %>

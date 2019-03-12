@@ -1,7 +1,7 @@
 <%= if assigns[:view] == nil || @view != :underlings do %>
   <h1>Users</h1>
 <% else %>
-   <h1>Underlings</h1>
+   <h4>Underlings</h4>
 <% end %>
 
 <table class="table table-striped">
@@ -25,5 +25,6 @@
 <% end %>
   </tbody>
 </table>
-
+<%= if assigns[:view] == nil || @view != :underlings do %>
 <span><%= link "New User", to: Routes.user_path(@conn, :new), class: "btn btn-primary" %></span>
+<% end %>

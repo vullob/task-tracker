@@ -10,6 +10,8 @@
     <strong>Manager:</strong>
     <%= @user.manager && @user.manager.email || "none" %>
  </li>
+    <%= render TaskTrackerWeb.UserView, "index.html",
+              Map.merge(assigns, %{users: @user.underlings, view: :underlings}) %>
 
 </ul>
 

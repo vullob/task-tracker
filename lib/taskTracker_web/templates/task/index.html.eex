@@ -1,7 +1,11 @@
 <%= if @view == :user do %>
   <h3>My Open Tasks</h3>
 <% else %>
+  <%= if @view == :underlings do %>
+  <h1>Underlings Task List</h1>
+  <%= else %>
   <h1>All Open Tasks</h1>
+<% end %>
 <% end %>
 <table class="table table-dark table-striped">
   <thead class="thead-dark">
@@ -31,39 +35,41 @@
 <% end %>
   </tbody>
 </table>
-<%= if @view == :user do %>
-  <h3>My Completed Tasks</h3>
-<% else %>
-  <h1>All Completed Tasks</h1>
-<% end %>
-<table class="table table-dark table-striped">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <%= if @view != :user do %>
-        <th>Description</th>
-      <% end %>
-      <th>Minutes Spent</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for task <- Enum.filter(@tasks, fn x -> x.completed end) do %>
-    <tr>
-      <td><%= task.title %></td>
-      <%= if @view != :user do %>
-        <td class="desc"><%= task.description %></td>
-      <% end %>
-      <td><%= task.minutes_spent %></td>
+<%= if @view != :underlings do %>
+  <%= if @view == :user do %>
+    <h3>My Completed Tasks</h3>
+  <% else %>
+    <h1>All Completed Tasks</h1>
+  <% end %>
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <%= if @view != :user do %>
+          <th>Description</th>
+        <% end %>
+        <th>Minutes Spent</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+  <%= for task <- Enum.filter(@tasks, fn x -> x.completed end) do %>
+      <tr>
+        <td><%= task.title %></td>
+        <%= if @view != :user do %>
+          <td class="desc"><%= task.description %></td>
+        <% end %>
+        <td><%= task.minutes_spent %></td>
 
-      <td>
-        <%= link "Show", to: Routes.task_path(@conn, :show, task), class: "btn btn-secondary" %>
-        <%= link "Edit", to: Routes.task_path(@conn, :edit, task),  class: "btn btn-info" %>
-        <%= link "Delete", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+        <td>
+          <%= link "Show", to: Routes.task_path(@conn, :show, task), class: "btn btn-secondary" %>
+          <%= link "Edit", to: Routes.task_path(@conn, :edit, task),  class: "btn btn-info" %>
+          <%= link "Delete", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %>
+        </td>
+      </tr>
+  <% end %>
+    </tbody>
+  </table>
 
-<span><%= link "New Task", to: Routes.task_path(@conn, :new), class: "btn btn-primary"%></span>
+  <span><%= link "New Task", to: Routes.task_path(@conn, :new), class: "btn btn-primary"%></span>
+<% end %>
