@@ -15,7 +15,8 @@ defmodule TaskTrackerWeb.TaskController do
   end
 
   def create(conn, %{"task" => task_params}) do
-    case Tasks.create_task(task_params) do
+    userId = conn.assigns[:current_user]
+    case Tasks.new_task(task_params, userId) do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task created successfully.")

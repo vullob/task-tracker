@@ -68,6 +68,24 @@ defmodule TaskTracker.Tasks do
        |> Task.changeset(attrs)
        |> Repo.insert
   end
+  def new_task(attrs \\ %{}, %{} = assigner) do
+    assignee = case attrs["user"]["email"] do
+            nil -> nil
+            "" -> nil
+            _ -> Users.get_user_by_email(attrs["user"]["email"]) || %{}
+          end
+    attrs = attrs
+          |> Map.put("user_id", Map.get(assignee, :id) || -1)
+          |> Map.put("assigner_id", Map.get(assigner, :id) || -2)
+     if assigner.id == nil || assignee == nil || assignee == %{} || assignee.manager_id == assigner.id do
+      %Task{}
+         |> Task.changeset(attrs)
+         |> Repo.insert
+    else
+     Task.changeset(%Task{}, attrs) |> Ecto.Changeset.add_error(:user_id, "user must be an underling") |> Ecto.Changeset.apply_action(:update)
+    end
+  end
+
 
   @doc """
   Updates a task.
