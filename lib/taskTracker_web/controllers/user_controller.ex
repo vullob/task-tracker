@@ -1,4 +1,5 @@
 defmodule TaskTrackerWeb.UserController do
+
   use TaskTrackerWeb, :controller
 
   alias TaskTracker.Users

@@ -9,16 +9,17 @@ defmodule TaskTracker.Tasks.Task do
     field :minutes_spent, :integer, null: false, default: 0
     field :title, :string, null: false
     belongs_to :user, TaskTracker.Users.User
-
+    belongs_to :assigner, TaskTracker.Users.User
     timestamps()
   end
 
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :completed, :description, :user_id, :minutes_spent])
+    |> cast(attrs, [:title, :completed, :description, :user_id, :minutes_spent, :assigner_id])
     |> validate_required([:title, :completed, :minutes_spent])
     |> foreign_key_constraint(:user_id, [message: "user not found"])
+    |> foreign_key_constraint(:assigner_id, [message: "You must be logged in to assign a task"])
     |> validate_length(:title)
     |> validate_length(:description)
     |> validate_minutes_spent(:minutes_spent)

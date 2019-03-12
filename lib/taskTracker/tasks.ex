@@ -93,6 +93,35 @@ defmodule TaskTracker.Tasks do
          |> Repo.update()
   end
 
+  def assign_task(%Task{} = task, attrs, %{} = assigner) do
+    assignee  = case attrs["user"]["email"] do
+            nil -> nil
+            "" -> nil
+            _ -> Users.get_user_by_email(attrs["user"]["email"]) || %{}
+          end
+
+    attrs =  Map.put(attrs, "user_id", Map.get(assignee, :id) || -20)
+            |> Map.put("assigner_id", Map.get(assigner, :id) || -20)
+            |> Map.delete(:user)
+    if assigner.id == nil || assignee == nil || assignee == %{} || assignee.manager_id == assigner.id do
+        task
+         |> Task.changeset(attrs)
+         |> Repo.update()
+    else
+     Task.changeset(task, attrs) |> Ecto.Changeset.add_error(:user_id, "user must be an underling") |> Ecto.Changeset.apply_action(:update)
+    end
+  end
+
+  def assign_task(%Task{} = task, attrs, nil) do
+    attrs = Map.put(attrs, "assigner_id", -20)
+    task
+      |> Task.changeset(attrs)
+      |> Repo.update()
+  end
+
+
+
+
   @doc """
   Deletes a Task.
 

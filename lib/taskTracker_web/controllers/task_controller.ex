@@ -39,8 +39,8 @@ defmodule TaskTrackerWeb.TaskController do
 
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Tasks.get_task(id)
-
-    case Tasks.update_task(task, task_params) do
+    userId = conn.assigns[:current_user]
+    case Tasks.assign_task(task, task_params, userId) do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task updated successfully.")
