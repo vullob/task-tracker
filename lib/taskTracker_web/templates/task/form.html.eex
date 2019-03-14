@@ -25,10 +25,17 @@
     <%= error_tag f, :completed %>
   </div>
 
+
   <div class="form-group">
-    <%= label f, :minutes_spent %>
-    <%= number_input f, :minutes_spent, class: "form-control", step: "15", min: "0"%>
-    <%= error_tag f, :minutes_spent %>
+    <%= label f, :start_time %>
+    <%= datetime_select f, :start_time, year: [prompt: ""], month: [prompt: ""], day: [prompt: ""], hour: [prompt: ""], minute: [prompt: ""], class: "form-control", default: nil %>
+    <%= error_tag f, :start_time %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :end_time %>
+    <%= datetime_select f, :end_time, year: [prompt: ""], month: [prompt: ""], day: [prompt: ""], hour: [prompt: ""], minute: [prompt: ""], class: "form-control", default: nil %>
+    <%= error_tag f, :end_time %>
   </div>
 
   <div class="form-group">

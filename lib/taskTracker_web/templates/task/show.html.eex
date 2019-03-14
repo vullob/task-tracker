@@ -19,10 +19,17 @@
 
 
   <li>
-    <strong>Minutes Spent:</strong>
-    <%= if @task.minutes_spent do %>
-      <%= @task.minutes_spent %>
+    <strong>Start Time:</strong>
+    <%= if @task.start_time do %>
+      <%= @task.start_time %>
     <% end %>
+  </li>
+  <li>
+    <strong>End Time:</strong>
+    <%= if @task.end_time do %>
+      <%= @task.end_time %>
+    <% end %>
+  </li>
   <li>
     <strong>Owner:</strong>
     <%= if @task.user != nil do %>

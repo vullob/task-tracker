@@ -20,7 +20,7 @@ defmodule TaskTracker.MixProject do
   def application do
     [
       mod: {TaskTracker.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools],
     ]
   end
 
@@ -33,6 +33,7 @@ defmodule TaskTracker.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:timex, "~> 3.5"},
       {:phoenix, "~> 1.4.0"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
