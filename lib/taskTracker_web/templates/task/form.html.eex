@@ -43,10 +43,6 @@
   </div>
 <% end %>
 <%= if @view == :edit do %>
-<button id="start-button"
-        data-user-id="<%= @current_user.id %>"
-        data-task-id="<%= Ecto.Changeset.get_field(@changeset, :id) %>"
-        class="btn btn-secondary">Start New TimeBlock</button>
 
 <script>
 window.time_block_path = "<%= Routes.time_block_path(@conn, :create) %>"
@@ -61,8 +57,15 @@ window.time_block_path = "<%= Routes.time_block_path(@conn, :create) %>"
     <% end %>
       <%= error_tag f, :user_id %>
   </div>
-
-  <div>
-    <%= submit "Save", class: "btn btn-primary" %>
+  <div class="row">
+  <div class="col-4">
+    <%= submit "Save", class: "btn btn-primary" , autofocus: "true"%>
+  </div>
+  <div class="col-4">
+  <button id="start-button"
+        data-user-id="<%= @current_user.id %>"
+        data-task-id="<%= Ecto.Changeset.get_field(@changeset, :id) %>"
+        class="btn btn-secondary">Start New TimeBlock</button>
+  </div>
   </div>
 <% end %>
