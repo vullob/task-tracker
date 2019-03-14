@@ -68,8 +68,8 @@ config :phoenix, :plug_init_mode, :runtime
 
 # Configure your database
 config :taskTracker, TaskTracker.Repo,
-  username: "task_tracker",
+  username: "task_tracker_2",
   password: "not_an_actual_password",
-  database: "tasktracker_dev",
+  database: "tasktracker_dev_2",
   hostname: "localhost",
   pool_size: 10

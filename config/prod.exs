@@ -11,7 +11,7 @@ use Mix.Config
 # before starting your production server.
 config :taskTracker, TaskTrackerWeb.Endpoint,
   http: [port: System.get_env("PORT")],
-  url: [host: "tasks1.miniguavabundtcakes.com", port: 80],
+  url: [host: "tasks2.miniguavabundtcakes.com", port: 80],
   server: true,
   root: ".",
   version: Application.spec(:spaceraiders, :vsn),
