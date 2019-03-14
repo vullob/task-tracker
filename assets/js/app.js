@@ -18,3 +18,31 @@ import "phoenix_html"
 import jQuery from 'jquery';
 window.jQuery = window.$ = jQuery; // Bootstrap requires a global "$" object.
 import "bootstrap";
+
+
+$(function () {
+
+  $('#start-button').click((ev) => {
+    let user_id = $(ev.target).data('user-id');
+    let task_id = $(ev.target).data('task-id')
+
+    let text = JSON.stringify({
+      time_block: {
+        user_id,
+        task_id,
+      }
+    });
+
+    console.log(text)
+
+    $.ajax(time_block_path, {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: text,
+      success: (resp) => {
+       console.log(resp)
+      },
+    });
+  });
+});

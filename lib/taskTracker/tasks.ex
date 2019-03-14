@@ -19,7 +19,7 @@ defmodule TaskTracker.Tasks do
 
   """
   def list_tasks do
-    Repo.all(Task)
+    Repo.all(Task) |> Repo.preload(:user) |> Repo.preload(:time_blocks)
   end
 
   @doc """
@@ -41,7 +41,7 @@ defmodule TaskTracker.Tasks do
   def get_task(id) do
     Repo.one from t in Task,
       where: t.id == ^id,
-      preload: [:user]
+      preload: [:user, :time_blocks]
   end
 
   @doc """
@@ -74,12 +74,10 @@ defmodule TaskTracker.Tasks do
     attrs = if assignee != nil do
       update_assignment_in_attrs(attrs, assignee, assigner)
     else attrs end |> IO.inspect
-    attrs = validate_datetime(attrs, "start_time")
-          |> validate_datetime("end_time")
     %Task{}
        |> Task.changeset(attrs)
        |> validate_underling_assignment(assigner, assignee)
-       |> Repo.insert |> IO.inspect
+       |> Repo.insert
   end
 
 
@@ -112,12 +110,17 @@ defmodule TaskTracker.Tasks do
     assignee = get_assignee_from_input(attrs)
     attrs = if assignee != nil do
       update_assignment_in_attrs(attrs, assignee, assigner)
-    else attrs end |> IO.inspect
-    attrs = validate_datetime(attrs, "start_time")
-          |> validate_datetime("end_time")
-    task |> Task.changeset(attrs)
+    else attrs end
+    time_block_errors = attrs["time_blocks"]
+          |> Map.values()
+          |> Enum.map(fn tb -> TaskTracker.TimeBlocks.update_time_block(TaskTracker.TimeBlocks.get_time_block!(tb["id"]), tb) end)
+          |> Enum.flat_map(fn cs -> Map.get(elem(cs, 1), :errors) || [] end)
+          |> Enum.uniq
+    task =  task
+         |> Task.changeset(attrs)
          |> validate_underling_assignment(assigner, assignee)
-         |> Repo.update |> IO.inspect
+    Enum.reduce(time_block_errors, task, fn error, acc -> Ecto.Changeset.add_error(acc, elem(error, 0), elem(elem(error, 1) , 0)) end)
+     |> Repo.update |> IO.inspect
   end
 
   def assign_task(%Task{} = task, attrs, nil) do
@@ -126,8 +129,6 @@ defmodule TaskTracker.Tasks do
       |> Task.changeset(attrs)
       |> Repo.update()
   end
-
-
 
 
   @doc """
@@ -157,33 +158,6 @@ defmodule TaskTracker.Tasks do
   """
   def change_task(%Task{} = task) do
     Task.changeset(task, %{})
-  end
-
-  def validate_datetime(attrs, field) do
-    dateTime = attrs[field]
-    hour = dateTime["hour"]
-    minute = dateTime["minute"]
-    day = dateTime["day"]
-    month = dateTime["month"]
-    year = dateTime["year"]
-    tody = DateTime.utc_now() |> Timex.to_datetime("America/New_York");
-    cond do
-      hour == "" && minute == "" && day == "" && month == "" && year == "" -> attrs
-      year == "" && month == "" && day == "" ->
-        newtime = attrs[field]
-              |> Map.put("day", tody.day)
-              |> Map.put("month", tody.month)
-              |> Map.put("year" , tody.year);
-
-        Map.put(attrs, field, newtime)
-      hour == "" && minute == ""->
-          newTime = attrs[field]
-                  |> Map.put("minute", 0)
-                  |> Map.put("hour", 0)
-
-          Map.put(attrs, field, newTime)
-      true -> attrs
-    end
   end
 
   def get_assignee_from_input(attrs) do

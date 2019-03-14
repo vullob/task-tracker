@@ -18,18 +18,20 @@
   </li>
 
 
+<%= for timeBlock <- @task.time_blocks do %>
   <li>
     <strong>Start Time:</strong>
-    <%= if @task.start_time do %>
-      <%= @task.start_time %>
+    <%= if timeBlock.start_time do %>
+      <%= timeBlock.start_time %>
     <% end %>
   </li>
   <li>
     <strong>End Time:</strong>
-    <%= if @task.end_time do %>
-      <%= @task.end_time %>
+    <%= if timeBlock.end_time do %>
+      <%= timeBlock.end_time %>
     <% end %>
   </li>
+<% end %>
   <li>
     <strong>Owner:</strong>
     <%= if @task.user != nil do %>

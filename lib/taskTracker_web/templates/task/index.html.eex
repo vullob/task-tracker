@@ -13,8 +13,7 @@
       <th>Title</th>
       <%= if @view != :user do %>
         <th>Description</th>
-        <th>Start Time</th>
-        <th>End Time</th>
+        <th>Assigned User</th>
       <% end %>
       <th></th>
     </tr>
@@ -25,8 +24,10 @@
       <td><%= task.title %></td>
       <%= if @view != :user do %>
         <td class="desc"><%= task.description %></td>
-        <td><%= task.start_time %></td>
-        <td><%= task.end_time %></td>
+        <td>
+        <%= if task.user do %>
+          <%= task.user.email %>
+        <% end %> </td>
       <% end %>
       <td>
         <%= link "Show", to: Routes.task_path(@conn, :show, task), class: "btn btn-secondary" %>
@@ -50,8 +51,7 @@
         <%= if @view != :user do %>
           <th>Description</th>
         <% end %>
-        <th>Start Time</th>
-        <th>End Time</th>
+        <th>Assigned User</th>
         <th></th>
       </tr>
     </thead>
@@ -62,8 +62,10 @@
         <%= if @view != :user do %>
           <td class="desc"><%= task.description %></td>
         <% end %>
-        <td><%= task.start_time %></td>
-        <td><%= task.end_time %></td>
+        <td>
+        <%= if task.user do %>
+          <%= task.user.email %>
+        <% end %> </td>
         <td>
           <%= link "Show", to: Routes.task_path(@conn, :show, task), class: "btn btn-secondary" %>
           <%= link "Edit", to: Routes.task_path(@conn, :edit, task),  class: "btn btn-info" %>
