@@ -119,7 +119,7 @@ defmodule TaskTracker.Tasks do
     task =  task
          |> Task.changeset(attrs)
          |> validate_underling_assignment(assigner, assignee)
-    Enum.reduce(time_block_errors, task, fn error, acc -> Ecto.Changeset.add_error(acc, elem(error, 0), elem(elem(error, 1) , 0)) end)
+    Enum.reduce(time_block_errors, task, fn error, acc -> error |> IO.inspect; Ecto.Changeset.add_error(acc, elem(error, 0), elem(elem(error, 1) , 0)) end)
      |> Repo.update |> IO.inspect
   end
 

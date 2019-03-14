@@ -24,6 +24,12 @@
     <%= checkbox f, :completed, class: "form-control"%>
     <%= error_tag f, :completed %>
   </div>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <%= error_tag f, :end_time %>
+      <%= error_tag f, :start_time %>
+    </div>
+  <% end %>
 
 <%= inputs_for f, :time_blocks, fn fp -> %>
   <div class="form-group">
@@ -34,10 +40,9 @@
   <div class="form-group">
     <%= label fp, :end_time %>
     <%= datetime_select fp, :end_time, year: [prompt: ""], month: [prompt: ""], day: [prompt: ""], hour: [prompt: ""], minute: [prompt: ""], class: "form-control", default: nil %>
-    <%= error_tag f, :end_time %>
   </div>
 <% end %>
-
+<%= if @view == :edit do %>
 <button id="start-button"
         data-user-id="<%= @current_user.id %>"
         data-task-id="<%= Ecto.Changeset.get_field(@changeset, :id) %>"
@@ -46,6 +51,8 @@
 <script>
 window.time_block_path = "<%= Routes.time_block_path(@conn, :create) %>"
 </script>
+
+<% end %>
 
   <div class="form-group">
     <%= inputs_for f, :user, fn fp -> %>
