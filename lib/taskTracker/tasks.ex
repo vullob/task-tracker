@@ -41,7 +41,7 @@ defmodule TaskTracker.Tasks do
   def get_task(id) do
     Repo.one from t in Task,
       where: t.id == ^id,
-      preload: [:user, :time_blocks]
+      preload: [:user, {:time_blocks, :user}]
   end
 
   @doc """
@@ -111,11 +111,12 @@ defmodule TaskTracker.Tasks do
     attrs = if assignee != nil do
       update_assignment_in_attrs(attrs, assignee, assigner)
     else attrs end
-    time_block_errors = attrs["time_blocks"]
+    time_block_errors = if attrs["time_blocks"] do
+        attrs["time_blocks"]
           |> Map.values()
           |> Enum.map(fn tb -> TaskTracker.TimeBlocks.update_time_block(TaskTracker.TimeBlocks.get_time_block!(tb["id"]), tb) end)
           |> Enum.flat_map(fn cs -> Map.get(elem(cs, 1), :errors) || [] end)
-          |> Enum.uniq
+          |> Enum.uniq else [] end
     task =  task
          |> Task.changeset(attrs)
          |> validate_underling_assignment(assigner, assignee)

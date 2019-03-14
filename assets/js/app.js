@@ -22,6 +22,37 @@ import "bootstrap";
 
 $(function () {
 
+
+  $('.finish-button').click((ev) => {
+    let user_id = $(ev.target).data('user-id');
+    let tbid = $(ev.target).data('id')
+    let path = $(ev.target).data('path')
+
+    let text = JSON.stringify({
+      id: tbid,
+      time_block: {
+        user_id,
+        id: tbid,
+        finished: true
+      }
+    });
+
+    console.log(text)
+
+    $.ajax(path, {
+      method: "put",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: text,
+      success: (resp) => {
+        let idToUpdate = `#tb-${resp.data.id}`
+        console.log(idToUpdate)
+        $(idToUpdate).text(`\n${resp.data.end_time}\n`)
+       console.log(resp.data.end_time)
+      },
+    });
+  });
+
   $('#start-button').click((ev) => {
     let user_id = $(ev.target).data('user-id');
     let task_id = $(ev.target).data('task-id')

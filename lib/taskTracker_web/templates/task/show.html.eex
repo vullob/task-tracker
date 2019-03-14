@@ -24,12 +24,24 @@
     <%= if timeBlock.start_time do %>
       <%= timeBlock.start_time %>
     <% end %>
-  </li>
-  <li>
+    <br/>
     <strong>End Time:</strong>
+    <div id="tb-<%= timeBlock.id %>">
     <%= if timeBlock.end_time do %>
       <%= timeBlock.end_time %>
+    <% else %>
+    <%= if timeBlock.user.id == @current_user.id do %>
+      <button
+          data-user-id="<%= @current_user.id %>"
+          data-task-id="<%= timeBlock.id %>"
+          data-path="<%= Routes.time_block_path(@conn, :update, timeBlock.id) %>"
+          class="finish-button btn btn-secondary">Finish TimeBlock</button>
+      <% end %>
+    </div>
     <% end %>
+    <br/>
+    <strong>Worker</strong>
+    <%= timeBlock.user.email %>
   </li>
 <% end %>
   <li>
