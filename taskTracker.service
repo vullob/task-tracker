@@ -3,14 +3,14 @@ Description=Task Tracker
 
 [Service]
 Type=simple
-User=tasktracker1
-Group=tasktracker1
+User=tasktracker2
+Group=tasktracker2
 Restart=on-failure
-Environment=MIX_ENV=prod "PORT=4794"
+Environment=MIX_ENV=prod "PORT=4795"
 Environment=LANG=en_US.UTF-8
 
-WorkingDirectory=/home/tasktracker1/task-tracker
-ExecStart=/home/tasktracker1/task-tracker/start.sh
+WorkingDirectory=/home/tasktracker2/task-tracker
+ExecStart=/home/tasktracker2/task-tracker/start.sh
 
 [Install]
 WantedBy=multi-user.target
