@@ -4,8 +4,8 @@
    <h4>Underlings</h4>
 <% end %>
 
-<table class="table table-striped">
-  <thead>
+<table class="table table-dark table-striped">
+  <thead class="thead-dark">
     <tr>
       <th>Email</th>
 
@@ -19,7 +19,7 @@
       <td>
         <%= link "Show", to: Routes.user_path(@conn, :show, user), class: "btn btn-secondary" %>
         <%= link "Edit", to: Routes.user_path(@conn, :edit, user), class: "btn btn-info" %>
-        <%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn, btn-danger" %>
+        <%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %>
       </td>
     </tr>
 <% end %>
