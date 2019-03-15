@@ -7,16 +7,16 @@
 
 
   <div class="form-group">
-    <%= label f, :email %>
+    <strong>Email</strong>
     <%= text_input f, :email %>
     <%= error_tag f, :email %>
   </div>
   <div class="form-group">
-    <%= label f, :admin %>
+    <Strong>Is User a Manager?</strong>
     <%= checkbox f, :admin %>
     <%= error_tag f, :admin %>
   </div>
-  <strong>Manager</strong>
+  <strong>User's Manager</strong>
   <div class="form-group">
   <%= inputs_for f, :manager, fn fp -> %>
     <%= label fp, :email %>
