@@ -11,6 +11,15 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
+# Design Choices
+
+When manually inputting date/times in timeblocks, if a user selects a day with no time specified
+the beginning of the day is assummed (0:00). If a user inputs a time without specifying a day, the
+current day in EST is assumed.
+
+EST was selected as the default timezone since all target users are in the eastern timezone.
+
+
 ## Learn more
 
   * Official website: http://www.phoenixframework.org/
@@ -18,4 +27,4 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
-# task-tracker
+# task-tracker 
